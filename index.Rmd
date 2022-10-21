@@ -1,6 +1,6 @@
 ---
 title: "Gov 50 Final Project"
-author: "Your Name Here"
+author: "Laeticia Allache"
 description: "My final project"
 output:
   distill::distill_article:
@@ -11,4 +11,4 @@ output:
 
 ## Project thoughts
 
-I am interested in exploring data related to...
+I am interested in exploring data related to Mediterranean migration, more specifically migration between Algeria and France. Following the end of World War II and Algerian Independence in 1961, there have been successive waves of migration from Algeria to France. A great deal of this migration is intimately intertwined with both countries' colonial histories. I am interested in more recent migrations, especially those during and following the black decade and civil war in Algeria during the 1990s, as well as 21st century migration. Additionally, I am interested in the degree of incorporation of these migrants, particularly into government and political positions, I want to ask: To what extent are Algerian immigrants, and those of Algerian ancestry (2nd or 3rd generation immigrants) incorporated into French politics and government?

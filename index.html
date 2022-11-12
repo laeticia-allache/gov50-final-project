@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","WP1_InstPOSDatasheet _Public.xls"]}
+  {"type":"character","attributes":{},"value":["BridgingtheGap_ReplicationData.dta","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","WP1_InstPOSDatasheet _Public.xls"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1519,15 +1519,28 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="milestone-1-project-thoughts">Milestone 1: Project Thoughts</h2>
 <p>I am interested in exploring data related to Mediterranean migration, more specifically migration between Algeria and France. Following the end of World War II and Algerian Independence in 1961, there have been successive waves of migration from Algeria to France. A great deal of this migration is intimately intertwined with both countries’ colonial histories. I am interested in more recent migrations, especially those during and following the black decade and civil war in Algeria during the 1990s, as well as 21st century migration. Additionally, I am interested in the degree of incorporation of these migrants, particularly into government and political positions, I want to ask: To what extent are Algerian immigrants, and those of Algerian ancestry (2nd or 3rd generation immigrants) incorporated into French politics and government?</p>
-<h2 id="milestone-2">Milestone 2:</h2>
+<h2 id="milestone-2-proposal">Milestone 2: Proposal</h2>
 <p>I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define ‘Algerian migrants’ as inclusive of Algerian migrants and those of Algerian descent in France (generational). My independent variables are the political opportunities afforded to Algerians in France which I will measure using three dimensions. Firstly, I will asses individual rights (right to stay, citizenship), group rights (education, religion, media representation), and finally I will look at local political opportunity structures (policies towards immigrants and immigrants’ organizations). My dependent variable is the political integration of Algerians, which I will assess by determining the proportion of Algerians involved in politics (voting, levels at which they hold political office) relative to their demographic size.
-I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my conclusion. However, if the data contains examples of loew educational opportunities, yet there is high political integration, my hypothesis will be disproved.</p>
+I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my conclusion. However, if the data contains examples of low educational opportunities, yet there is high political integration, my hypothesis will be disproved.</p>
 <p>I am using data from the Castelli, Morales, et all “LOCALMULTIDEM - Multicultural Democracy and Immigrants’ Social Capital in Europe” which studies the political opportunities afforded to migrants in multicultural democracies in Europe. For the purposes of my project, I will only be studying their data on France. Unfortunately, their data does not distinguish between Algerian migrants, and migrants of other backgrounds.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'># WP1_InstPOSDatasheet_Public.xls</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#install.packages("WP1_InstPOSDatasheet_Public.xls")</span></span></code></pre>
 </div>
 </div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span></span>
+<span><span class='co'>#read_xls("WP1_InstPOSDatasheet_Public.xls")</span></span></code></pre>
+</div>
+</div>
+<h2 id="milestone-3-one-data-visualization">Milestone 3: One Data Visualization</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#install.packages("BridgingtheGap_ReplicationData.dta")</span></span></code></pre>
+</div>
+</div>
+<p>I am sorry to say that I have been unable to manipulate my original data set, and I managed to find another useful data set for my research question, yet I keep running into the same issue. I am looking to resolve this as quickly as possible and to remain on track for completing the next milestone on time.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

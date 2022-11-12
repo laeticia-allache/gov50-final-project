@@ -23,17 +23,19 @@ I am using data from the Castelli, Morales, et all "LOCALMULTIDEM - Multicultura
 
 
 ```{r}
-install.packages("WP1_InstPOSDatasheet_Public.xls")
+#install.packages("WP1_InstPOSDatasheet_Public.xls")
 ```
 
 
 ```{r}
 library(readxl)
-read_xls("WP1_InstPOSDatasheet_Public.xls")
+#read_xls("WP1_InstPOSDatasheet_Public.xls")
 ```
 
-
+## Milestone 3: One Data Visualization
 ```{r}
-install.packages("BridgingtheGap_ReplicationData.dta")
+#install.packages("BridgingtheGap_ReplicationData.dta")
 ```
+
+I am sorry to say that I have been unable to manipulate my original data set, and I managed to find another useful data set for my research question, yet I keep running into the same issue. I am looking to resolve this as quickly as possible and to remain on track for completing the next milestone on time. 
 

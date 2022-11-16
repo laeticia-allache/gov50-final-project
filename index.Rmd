@@ -16,11 +16,11 @@ I am interested in exploring data related to Mediterranean migration, more speci
 ## Milestone 2: Proposal
 
 I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define 'Algerian migrants' as inclusive of Algerian migrants and those of Algerian descent in France (generational). My independent variables are the political opportunities afforded to Algerians in France which I will measure using three dimensions. Firstly, I will asses individual rights (right to stay, citizenship), group rights (education, religion, media representation), and finally I will look at local political opportunity structures (policies towards immigrants and immigrants' organizations). My dependent variable is the political integration of Algerians, which I will assess by determining the proportion of Algerians involved in politics (voting, levels at which they hold political office) relative to their demographic size. 
-I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my conclusion. However, if the data contains examples of low educational opportunities, yet there is high political integration, my hypothesis will be disproved.
+I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my hypothesis However, if the data contains examples of low educational opportunities, yet there is high political integration, my hypothesis will be disproved.
 
 I am using data from the Castelli, Morales, et all "LOCALMULTIDEM - Multicultural Democracy and Immigrants' Social Capital in Europe" which studies the political opportunities afforded to migrants in multicultural democracies in Europe. For the purposes of my project, I will only be studying their data on France. Unfortunately, their data does not distinguish between Algerian migrants, and migrants of other backgrounds.
 
-
+# Reading my data
 
 ```{r}
 #install.packages("WP1_InstPOSDatasheet_Public.xls")
@@ -30,12 +30,30 @@ I am using data from the Castelli, Morales, et all "LOCALMULTIDEM - Multicultura
 ```{r}
 library(readxl)
 #read_xls("WP1_InstPOSDatasheet_Public.xls")
+
+library(tidyverse)
+library(haven)
+
+lmd <- read_dta("LMD_DOS_Final.dta")
+lmd
 ```
 
 ## Milestone 3: One Data Visualization
 ```{r}
 #install.packages("BridgingtheGap_ReplicationData.dta")
+
+library(haven)
+df <- read_dta("BridgingtheGap_ReplicationData.dta")
+df
 ```
 
-I am sorry to say that I have been unable to manipulate my original data set, and I managed to find another useful data set for my research question, yet I keep running into the same issue. I am looking to resolve this as quickly as possible and to remain on track for completing the next milestone on time. 
+```{r}
+library(tidyverse)
+detailed_scores <- read_csv("WP1_InstPOSDatasheet_Public/DETAILED SCORES-Table 1.csv")
+detailed_scores
+
+summary_scores <- read_csv("WP1_InstPOSDatasheet_Public/SUMMARY SCORES-Table 1.csv")
+summary_scores
+```
+
 

@@ -30,27 +30,32 @@ lmd <- read_dta("LMDindiv merged dataset FINAL cleanedAPR2014.dta") |>
     group_label = sjlabelled::as_label(group),
     algerian_binary = if_else(group_label == "algerian", 1, 0),
     immigrant_label = sjlabelled::as_label(qtype),
-    immigrant_binary = if_else(immigrant_label == "immigrant origin", 1, 0)) |>
+    immigrant_binary = if_else(immigrant_label == "immigrant origin", 1, 0),
+   vote_host_label = sjlabelled::as_label(q25),
+   vote_home_label = sjlabelled::as_label(q30),
+   vote_local_label = sjlabelled::as_label(q27FR)) |>
   select(
     id, cntry, cntry_origin = q3, 
     city, group, group_label, algerian_binary,
     q1902, int_host, int_host_label,
     q1903, int_home, int_home_label,
-    immigrant = qtype, immigrant_binary, immigrant_label)
+    immigrant = qtype, immigrant_binary, immigrant_label, 
+    q25, vote_host_label, q30, vote_home_label, q27FR, vote_local_label)
 ```
 
 
-## Milestone 1: Project Thoughts
+## Initial Project Thoughts
 
 I am interested in exploring data related to Mediterranean migration, more specifically migration between Algeria and France. Following the end of World War II and Algerian Independence in 1961, there have been successive waves of migration from Algeria to France. A great deal of this migration is intimately intertwined with both countries' colonial histories. I am interested in more recent migrations, especially those during and following the black decade and civil war in Algeria during the 1990s, as well as 21st century migration. Additionally, I am interested in the degree of incorporation of these migrants, particularly into government and political positions, I want to ask: To what extent are Algerian immigrants, and those of Algerian ancestry (2nd or 3rd generation immigrants) incorporated into French politics and government?
 
 
-## Milestone 2: Proposal
+## Project Proposal
 
-I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define 'Algerian migrants' as inclusive of Algerian migrants and those of Algerian descent in France (generational). My independent variables are the political opportunities afforded to Algerians in France which I will measure using three dimensions. Firstly, I will asses individual rights (right to stay, citizenship), group rights (education, religion, media representation), and finally I will look at local political opportunity structures (policies towards immigrants and immigrants' organizations). My dependent variable is the political integration of Algerians, which I will assess by determining the proportion of Algerians involved in politics (voting, levels at which they hold political office) relative to their demographic size. 
+I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define 'Algerian migrants' as inclusive of Algerian migrants and those of Algerian descent in France (generational). My explanatory variables are the identities of those questioned in the survey data, and I am specifically controlling for whether an individual identifies as French or Algerian, and if they are an immigrant or not. My outcome variable is the political integration of Algerians, which I will assess by observing the measures of interest in host country politics, interest in home country politics, and voter participation in the host and home country, as well as local elections in the host country.
+
 I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my hypothesis However, if the data contains examples of low educational opportunities, yet there is high political integration, my hypothesis will be disproved.
 
-I am using data from the Castelli, Morales, et all "LOCALMULTIDEM - Multicultural Democracy and Immigrants' Social Capital in Europe" which studies the political opportunities afforded to migrants in multicultural democracies in Europe. For the purposes of my project, I will only be studying their data on France. Unfortunately, their data does not distinguish between Algerian migrants, and migrants of other backgrounds.
+I am using data from the Morales, Anduiza,Bengtsson, et all "LOCALMULTIDEM and MDE Individual Survey (WP4) Dataset" which studies the political opportunities afforded to migrants in multicultural democracies in Europe. This is a massive data set that based on survey questioning. For the purposes of my project, I will focusing on their data on France, and more specifically on Algerians in France. This data is very strong in how it distinguishes between Algerian migrants, migrants of other backgrounds, and French born people- as this is very difficult considering France's policy of laïcité.
 
 
 ## Distribution of plot of the outcome variable
@@ -59,6 +64,12 @@ I am using data from the Castelli, Morales, et all "LOCALMULTIDEM - Multicultura
 lmd |>
   ggplot(aes(x = int_host)) +
   geom_histogram(aes(y = ..count../sum(..count..)))
+```
+
+```{r}
+lmd |>
+  ggplot(aes(x = q25)) +
+  geom_histogram(aes(y = ..count..))
 ```
 
 

@@ -7,6 +7,38 @@ output:
     self_contained: false
 ---
 
+```{r}
+library(tidyverse)
+library(haven)
+library(sjlabelled)
+
+lmd <- read_dta("LMDindiv merged dataset FINAL cleanedAPR2014.dta") |> 
+  filter(cntry == "FR") |>
+  mutate(
+    int_host_label = sjlabelled::as_label(q1902),
+    int_host = case_when(
+      q1902 == 4 ~ 1,
+      q1902 == 3 ~ 2,
+      q1902 == 2 ~ 3,
+      q1902 == 1 ~ 4),
+    int_home_label = sjlabelled::as_label(q1903),
+    int_home = case_when(
+      q1903 == 4 ~ 1,
+      q1903 == 3 ~ 2,
+      q1903 == 2 ~ 3,
+      q1903 == 1 ~ 4),
+    group_label = sjlabelled::as_label(group),
+    algerian_binary = if_else(group_label == "algerian", 1, 0),
+    immigrant_label = sjlabelled::as_label(qtype),
+    immigrant_binary = if_else(immigrant_label == "immigrant origin", 1, 0)) |>
+  select(
+    id, cntry, cntry_origin = q3, 
+    city, group, group_label, algerian_binary,
+    q1902, int_host, int_host_label,
+    q1903, int_home, int_home_label,
+    immigrant = qtype, immigrant_binary, immigrant_label)
+```
+
 
 ## Milestone 1: Project Thoughts
 
@@ -20,40 +52,40 @@ I predict that when opportunities across all three dimensions (individual, group
 
 I am using data from the Castelli, Morales, et all "LOCALMULTIDEM - Multicultural Democracy and Immigrants' Social Capital in Europe" which studies the political opportunities afforded to migrants in multicultural democracies in Europe. For the purposes of my project, I will only be studying their data on France. Unfortunately, their data does not distinguish between Algerian migrants, and migrants of other backgrounds.
 
-# Reading my data
+
+## Distribution of plot of the outcome variable
 
 ```{r}
-#install.packages("WP1_InstPOSDatasheet_Public.xls")
+lmd |>
+  ggplot(aes(x = int_host)) +
+  geom_histogram(aes(y = ..count../sum(..count..)))
 ```
 
 
-```{r}
-library(readxl)
-#read_xls("WP1_InstPOSDatasheet_Public.xls")
-
-library(tidyverse)
-library(haven)
-
-lmd <- read_dta("LMD_DOS_Final.dta")
-lmd
-```
-
-## Milestone 3: One Data Visualization
-```{r}
-#install.packages("BridgingtheGap_ReplicationData.dta")
-
-library(haven)
-df <- read_dta("BridgingtheGap_ReplicationData.dta")
-df
-```
+## Bivariate plot of the explanatory (x) and outcome variable (y)
 
 ```{r}
-library(tidyverse)
-detailed_scores <- read_csv("WP1_InstPOSDatasheet_Public/DETAILED SCORES-Table 1.csv")
-detailed_scores
+lmd |>
+  group_by(algerian_binary) |>
+  summarize(int_host = mean(int_host, na.rm = TRUE)) |>
+  ggplot(aes(x = algerian_binary, y = int_host)) +
+  geom_col()
 
-summary_scores <- read_csv("WP1_InstPOSDatasheet_Public/SUMMARY SCORES-Table 1.csv")
-summary_scores
+lmd |>
+  ggplot(aes(x = as.factor(algerian_binary), y = int_host)) +
+  geom_boxplot()
 ```
 
+## Multivariate regression table
+
+```{r}
+mod1 <- 
+  lm(
+    data = lmd,
+    int_host ~
+      algerian_binary + immigrant_binary)
+
+summary(mod1)$coefficients |>
+  knitr::kable(digits = 2)
+```
 

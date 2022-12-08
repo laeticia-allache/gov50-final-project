@@ -115,7 +115,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["BridgingtheGap_ReplicationData.dta","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","LMD_DOS_Final.dta","WP1_InstPOSDatasheet _Public.xls","WP1_InstPOSDatasheet_Public/DETAILED SCORES-Table 1.csv","WP1_InstPOSDatasheet_Public/SUMMARY SCORES-Table 1.csv"]}
+  {"type":"character","attributes":{},"value":["final_proj_data/BridgingtheGap_ReplicationData.dta","final_proj_data/dataverse_files.zip","final_proj_data/dataverse_files/Codebook_DEC2013.pdf","final_proj_data/dataverse_files/CountrySpecificVariablesReport.pdf","final_proj_data/dataverse_files/LMDindiv merged dataset FINAL cleanedAPR2014.sav.zip","final_proj_data/dataverse_files/Questionnaires.pdf","final_proj_data/dataverse_files/Summary variables in merged file amended 2013.PDF","final_proj_data/dataverse_files/Summary variables in merged file amended 2013.xls","final_proj_data/dataverse_files/TechnicalReport.pdf","final_proj_data/LMD_DOS_Final.dta","final_proj_data/WP1_InstPOSDatasheet _Public.xls","final_proj_data/WP1_InstPOSDatasheet_Public/DETAILED SCORES-Table 1.csv","final_proj_data/WP1_InstPOSDatasheet_Public/SUMMARY SCORES-Table 1.csv","index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-2-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/header-attrs-2.16/header-attrs.js","index_files/header-attrs-2.17/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","LMDindiv merged dataset FINAL cleanedAPR2014.dta"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1517,127 +1517,119 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://strengejacke.github.io/sjlabelled/'>sjlabelled</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>lmd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span><span class='op'>(</span><span class='st'>"LMDindiv merged dataset FINAL cleanedAPR2014.dta"</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>cntry</span> <span class='op'>==</span> <span class='st'>"FR"</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span></span>
+<span>    int_host_label <span class='op'>=</span> <span class='fu'>sjlabelled</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjlabelled/reference/as_label.html'>as_label</a></span><span class='op'>(</span><span class='va'>q1902</span><span class='op'>)</span>,</span>
+<span>    int_host <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>q1902</span> <span class='op'>==</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fl'>1</span>,</span>
+<span>      <span class='va'>q1902</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='fl'>2</span>,</span>
+<span>      <span class='va'>q1902</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>~</span> <span class='fl'>3</span>,</span>
+<span>      <span class='va'>q1902</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='fl'>4</span><span class='op'>)</span>,</span>
+<span>    int_home_label <span class='op'>=</span> <span class='fu'>sjlabelled</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjlabelled/reference/as_label.html'>as_label</a></span><span class='op'>(</span><span class='va'>q1903</span><span class='op'>)</span>,</span>
+<span>    int_home <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/case_when.html'>case_when</a></span><span class='op'>(</span></span>
+<span>      <span class='va'>q1903</span> <span class='op'>==</span> <span class='fl'>4</span> <span class='op'>~</span> <span class='fl'>1</span>,</span>
+<span>      <span class='va'>q1903</span> <span class='op'>==</span> <span class='fl'>3</span> <span class='op'>~</span> <span class='fl'>2</span>,</span>
+<span>      <span class='va'>q1903</span> <span class='op'>==</span> <span class='fl'>2</span> <span class='op'>~</span> <span class='fl'>3</span>,</span>
+<span>      <span class='va'>q1903</span> <span class='op'>==</span> <span class='fl'>1</span> <span class='op'>~</span> <span class='fl'>4</span><span class='op'>)</span>,</span>
+<span>    group_label <span class='op'>=</span> <span class='fu'>sjlabelled</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjlabelled/reference/as_label.html'>as_label</a></span><span class='op'>(</span><span class='va'>group</span><span class='op'>)</span>,</span>
+<span>    algerian_binary <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>group_label</span> <span class='op'>==</span> <span class='st'>"algerian"</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span>,</span>
+<span>    immigrant_label <span class='op'>=</span> <span class='fu'>sjlabelled</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjlabelled/reference/as_label.html'>as_label</a></span><span class='op'>(</span><span class='va'>qtype</span><span class='op'>)</span>,</span>
+<span>    immigrant_binary <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>immigrant_label</span> <span class='op'>==</span> <span class='st'>"immigrant origin"</span>, <span class='fl'>1</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span></span>
+<span>    <span class='va'>id</span>, <span class='va'>cntry</span>, cntry_origin <span class='op'>=</span> <span class='va'>q3</span>, </span>
+<span>    <span class='va'>city</span>, <span class='va'>group</span>, <span class='va'>group_label</span>, <span class='va'>algerian_binary</span>,</span>
+<span>    <span class='va'>q1902</span>, <span class='va'>int_host</span>, <span class='va'>int_host_label</span>,</span>
+<span>    <span class='va'>q1903</span>, <span class='va'>int_home</span>, <span class='va'>int_home_label</span>,</span>
+<span>    immigrant <span class='op'>=</span> <span class='va'>qtype</span>, <span class='va'>immigrant_binary</span>, <span class='va'>immigrant_label</span><span class='op'>)</span></span></code></pre>
+</div>
+</div>
 <h2 id="milestone-1-project-thoughts">Milestone 1: Project Thoughts</h2>
 <p>I am interested in exploring data related to Mediterranean migration, more specifically migration between Algeria and France. Following the end of World War II and Algerian Independence in 1961, there have been successive waves of migration from Algeria to France. A great deal of this migration is intimately intertwined with both countries’ colonial histories. I am interested in more recent migrations, especially those during and following the black decade and civil war in Algeria during the 1990s, as well as 21st century migration. Additionally, I am interested in the degree of incorporation of these migrants, particularly into government and political positions, I want to ask: To what extent are Algerian immigrants, and those of Algerian ancestry (2nd or 3rd generation immigrants) incorporated into French politics and government?</p>
 <h2 id="milestone-2-proposal">Milestone 2: Proposal</h2>
 <p>I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define ‘Algerian migrants’ as inclusive of Algerian migrants and those of Algerian descent in France (generational). My independent variables are the political opportunities afforded to Algerians in France which I will measure using three dimensions. Firstly, I will asses individual rights (right to stay, citizenship), group rights (education, religion, media representation), and finally I will look at local political opportunity structures (policies towards immigrants and immigrants’ organizations). My dependent variable is the political integration of Algerians, which I will assess by determining the proportion of Algerians involved in politics (voting, levels at which they hold political office) relative to their demographic size.
 I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my hypothesis However, if the data contains examples of low educational opportunities, yet there is high political integration, my hypothesis will be disproved.</p>
 <p>I am using data from the Castelli, Morales, et all “LOCALMULTIDEM - Multicultural Democracy and Immigrants’ Social Capital in Europe” which studies the political opportunities afforded to migrants in multicultural democracies in Europe. For the purposes of my project, I will only be studying their data on France. Unfortunately, their data does not distinguish between Algerian migrants, and migrants of other backgrounds.</p>
-<h1 id="reading-my-data">Reading my data</h1>
+<h2 id="distribution-of-plot-of-the-outcome-variable">Distribution of plot of the outcome variable</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#install.packages("WP1_InstPOSDatasheet_Public.xls")</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>lmd</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>int_host</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_histogram.html'>geom_histogram</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='va'>..count..</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>..count..</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
+<p><img src="index_files/figure-html5/unnamed-chunk-2-1.png" width="624" /></p>
 </div>
+<h2 id="bivariate-plot-of-the-explanatory-x-and-outcome-variable-y">Bivariate plot of the explanatory (x) and outcome variable (y)</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readxl.tidyverse.org'>readxl</a></span><span class='op'>)</span></span>
-<span><span class='co'>#read_xls("WP1_InstPOSDatasheet_Public.xls")</span></span>
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>lmd</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>algerian_binary</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarize</a></span><span class='op'>(</span>int_host <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>int_host</span>, na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>algerian_binary</span>, y <span class='op'>=</span> <span class='va'>int_host</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>lmd</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>algerian_binary</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='va'>int_host</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span></span>
+<span>  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_boxplot.html'>geom_boxplot</a></span><span class='op'>(</span><span class='op'>)</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-2.png" width="624" /></p>
+</div>
+<h2 id="multivariate-regression-table">Multivariate regression table</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>mod1</span> <span class='op'>&lt;-</span> </span>
+<span>  <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span></span>
+<span>    data <span class='op'>=</span> <span class='va'>lmd</span>,</span>
+<span>    <span class='va'>int_host</span> <span class='op'>~</span></span>
+<span>      <span class='va'>algerian_binary</span> <span class='op'>+</span> <span class='va'>immigrant_binary</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span></span>
-<span></span>
-<span><span class='va'>lmd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span><span class='op'>(</span><span class='st'>"LMD_DOS_Final.dta"</span><span class='op'>)</span></span>
-<span><span class='va'>lmd</span></span></code></pre>
+<span><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>mod1</span><span class='op'>)</span><span class='op'>$</span><span class='va'>coefficients</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>digits <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span></span></code></pre>
 </div>
-<pre><code># A tibble: 3,039 × 32
-   city     idclaim   date title descr actor1 actor2 sactor1   sactor2
-   &lt;dbl+lb&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;dbl+lbl&gt; &lt;dbl+l&gt;
- 1 8 [stoc…       4 2.01e7 &quot;&quot;    &quot;Sav… Save … &quot;&quot;     160 [gen… NA     
- 2 5 [lyon]      48 2.01e7 &quot; LI… &quot;Dom… Domin… &quot;&quot;      70 [pol… NA     
- 3 5 [lyon]      48 2.01e7 &quot; LI… &quot;Sev… LICRA… &quot;&quot;     140 [ant… NA     
- 4 8 [stoc…     120 2.01e7 &quot;&quot;    &quot;Cit… Gun B… &quot;&quot;     999 [unk… NA     
- 5 5 [lyon]      48 2.01e7 &quot; LI… &quot;Ala… Alain… &quot;&quot;     120 [pro… NA     
- 6 8 [stoc…     444 2.01e7 &quot;&quot;    &quot;Sol… Arion… &quot;&quot;      10 [gov… NA     
- 7 5 [lyon]     186 2.01e7 &quot;   … &quot;The… RESF   &quot;&quot;     150 [pro… NA     
- 8 5 [lyon]     186 2.01e7 &quot;  3… &quot;In … Nicol… &quot;&quot;      10 [gov… NA     
- 9 5 [lyon]       3 2.01e7 &quot;  I… &quot;Sar… Nicol… &quot;&quot;      10 [gov… NA     
-10 5 [lyon]     205 2.01e7 &quot;  L… &quot;J-P… Jean-… &quot;&quot;      10 [gov… NA     
-# … with 3,029 more rows, and 23 more variables: party1 &lt;chr&gt;,
-#   party2 &lt;chr&gt;, actscop1 &lt;dbl+lbl&gt;, actscop2 &lt;dbl+lbl&gt;,
-#   natmin &lt;chr&gt;, sform &lt;dbl+lbl&gt;, sadres &lt;dbl+lbl&gt;,
-#   scritac &lt;dbl+lbl&gt;, adrescop &lt;dbl+lbl&gt;, critscop &lt;dbl+lbl&gt;,
-#   sissue &lt;dbl+lbl&gt;, ssissue &lt;dbl+lbl&gt;, field &lt;dbl+lbl&gt;,
-#   isscop &lt;dbl+lbl&gt;, focus &lt;dbl+lbl&gt;, sfocus &lt;dbl+lbl&gt;,
-#   posit &lt;dbl+lbl&gt;, objiden &lt;dbl+lbl&gt;, sobjiden &lt;dbl+lbl&gt;, …</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Std. Error</th>
+<th style="text-align: right;">t value</th>
+<th style="text-align: right;">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.00</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">61.84</td>
+<td style="text-align: right;">0.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">algerian_binary</td>
+<td style="text-align: right;">-0.16</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">-2.12</td>
+<td style="text-align: right;">0.03</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">immigrant_binary</td>
+<td style="text-align: right;">-0.01</td>
+<td style="text-align: right;">0.08</td>
+<td style="text-align: right;">-0.19</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h2 id="milestone-3-one-data-visualization">Milestone 3: One Data Visualization</h2>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#install.packages("BridgingtheGap_ReplicationData.dta")</span></span>
-<span></span>
-<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span></span>
-<span><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_dta.html'>read_dta</a></span><span class='op'>(</span><span class='st'>"BridgingtheGap_ReplicationData.dta"</span><span class='op'>)</span></span>
-<span><span class='va'>df</span></span></code></pre>
-</div>
-<pre><code># A tibble: 27,317 × 70
-      id  year  term inscrits    cm perma…¹ paris   age budget termy…²
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
- 1  1911  1912  1910    19.7      1   1.67      1    54      0      44
- 2  5653  1915  1914    12.5      0   8.30      1    52      0      48
- 3  1203  1916  1914    22.3      0  18.8       0    44      0      49
- 4  2231  1915  1914    17.4      0   3.90      0    44      0      48
- 5   564  1918  1914    25.2      0  15.1       0    49      0      51
- 6  4271  1914  1910    15.4      0   8.93      0    42      0      46
- 7  7368  1901  1898    11.7      0  32.8       1    38      0      30
- 8  3609  1919  1914    18.2      0   3.88      1    56      0      52
- 9  4042  1907  1906     5.97     0   0.105     0    39      0      38
-10   261  1917  1914    15.9      0   1.77      0    62      0      50
-# … with 27,307 more rows, 60 more variables:
-#   budgetexptermyears &lt;dbl&gt;, civil &lt;dbl&gt;, cummyears &lt;dbl&gt;,
-#   dynastic &lt;dbl&gt;, after1910 &lt;dbl&gt;, groupswitch_ &lt;dbl&gt;,
-#   switch_ &lt;dbl&gt;, encodeparty_ &lt;dbl+lbl&gt;, encodegroup_ &lt;dbl+lbl&gt;,
-#   centrist_all &lt;dbl&gt;, diffindiffsample &lt;dbl&gt;, elite &lt;dbl&gt;,
-#   bourgeois &lt;dbl&gt;, otherclass &lt;dbl&gt;, switch_any &lt;dbl&gt;, age2 &lt;dbl&gt;,
-#   permargin2 &lt;dbl&gt;, inscrits2 &lt;dbl&gt;, cummyears2 &lt;dbl&gt;, …</code></pre>
-</div>
-<div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
-<span><span class='va'>detailed_scores</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"WP1_InstPOSDatasheet_Public/DETAILED SCORES-Table 1.csv"</span><span class='op'>)</span></span>
-<span><span class='va'>detailed_scores</span></span></code></pre>
-</div>
-<pre><code># A tibble: 530 × 14
-   ...1    ...2  ...3  ...4  ...5  ...6  ...7  ...8  ...9  ...10 ...11
-   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
- 1 &lt;NA&gt;    &lt;NA&gt;  G1=E… G1=A… G1=A… G1=M… G1=F… G1=T… G1=K… G1=T… G1=M…
- 2 &lt;NA&gt;    Defi… G2=C… G2=B… G2=T… G2=E… G2=E… G2=K… G2=I… G2=C… G2=E…
- 3 &lt;NA&gt;    &lt;NA&gt;  G3=M… G3=I… G3=M… G3=A… G3=E… G3=I… &lt;NA&gt;  G3=K… G3=A…
- 4 &lt;NA&gt;    &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt; 
- 5 Descri… Indi… Buda… Lond… Lyon  Madr… Milan Zuri… Gene… Stoc… Barc…
- 6 Short-… 1_GE  0     -1    1     -1    1     -1    -1    1     -1   
- 7 &lt;NA&gt;    1_G1  0     -1    1     -1    1     -1    -1    1     -1   
- 8 &lt;NA&gt;    1_G2  0     -1    1     -1    1     -1    -1    1     -1   
- 9 &lt;NA&gt;    1_G3  0     -1    0     -1    1     -1    &lt;NA&gt;  1     -1   
-10 Short-… 2_GE  0     1     1     1     1     1     1     1     1    
-# … with 520 more rows, and 3 more variables: ...12 &lt;lgl&gt;,
-#   `Remark = annotations on the calculation of means for dimension scores (dimension score level)` &lt;chr&gt;,
-#   ...14 &lt;lgl&gt;</code></pre>
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>summary_scores</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"WP1_InstPOSDatasheet_Public/SUMMARY SCORES-Table 1.csv"</span><span class='op'>)</span></span>
-<span><span class='va'>summary_scores</span></span></code></pre>
-</div>
-<pre><code># A tibble: 82 × 13
-   ...1  ...2  G1=Et…¹ G1=Af…² G1=Al…³ G1=Mo…⁴ G1=Fi…⁵ G1=Tu…⁶ G1=Ko…⁷
-   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;  
- 1 &lt;NA&gt;  Defi… G2=Chi… G2=Ban… G2=Tun… G2=Ecu… G2=Egy… G2=Kos… G2=Ita…
- 2 &lt;NA&gt;  &lt;NA&gt;  G3=Mus… G3=Ind… G3=Mor… G3=And… G3=Ecu… G3=Ita… &lt;NA&gt;   
- 3 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;   
- 4 &lt;NA&gt;  &lt;NA&gt;  &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;    &lt;NA&gt;   
- 5 Desc… Indi… Budape… London  Lyon    Madrid  Milan   Zurich  Geneva 
- 6 Over… Acce… -0.6    -0.6    0.8     0.0     -0.2    0.2     0.2    
- 7 &lt;NA&gt;  Acce… -0.6    -0.6    0.8     0.0     -0.2    -0.2    -0.2   
- 8 &lt;NA&gt;  Acce… -0.6    -0.6    0.6     0.0     -0.2    -0.2    0.2    
- 9 &lt;NA&gt;  Acce… -0.6    -0.6    0.2     0.0     -0.2    0.2     &lt;NA&gt;   
-10 Over… Acce… 0.0     -0.2    0.7     0.2     0.0     -0.5    -0.5   
-# … with 72 more rows, 4 more variables: `G1=Turks` &lt;chr&gt;,
-#   `G1=Moroccan...11` &lt;chr&gt;, ...12 &lt;lgl&gt;,
-#   `Remark = annotations on the calculation of means for dimension scores (dimension score level)` &lt;chr&gt;,
-#   and abbreviated variable names ¹​`G1=Ethnic Hungarian`,
-#   ²​`G1=Afro-Caribbean`, ³​`G1=Algerian`, ⁴​`G1=Moroccan...6`,
-#   ⁵​`G1=Filipino`, ⁶​`G1=Turk`, ⁷​`G1=Kosovar`</code></pre>
-</div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>

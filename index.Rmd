@@ -44,36 +44,127 @@ lmd <- read_dta("LMDindiv merged dataset FINAL cleanedAPR2014.dta") |>
 ```
 
 
-## Initial Project Thoughts
+## Intro
 
-I am interested in exploring data related to Mediterranean migration, more specifically migration between Algeria and France. Following the end of World War II and Algerian Independence in 1961, there have been successive waves of migration from Algeria to France. A great deal of this migration is intimately intertwined with both countries' colonial histories. I am interested in more recent migrations, especially those during and following the black decade and civil war in Algeria during the 1990s, as well as 21st century migration. Additionally, I am interested in the degree of incorporation of these migrants, particularly into government and political positions, I want to ask: To what extent are Algerian immigrants, and those of Algerian ancestry (2nd or 3rd generation immigrants) incorporated into French politics and government?
+I am interested in migration between Algeria and France. Following the end of World War II and Algerian Independence in 1961, there have been successive waves of migration from Algeria to France. A great deal of this migration is intimately intertwined with both countries' colonial histories. Considering this history of migration that continue to the present day, I am interested in the degree of incorporation of these migrants, particularly with respect to political incorporation.
 
+I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define 'Algerian migrants' as inclusive of Algerian migrants and those of Algerian descent in France (generational Algerians). My explanatory variables are the identities of those questioned in the survey data, and I am specifically controlling for whether an individual identifies as French or Algerian, and if they are an immigrant or not. My outcome variable is the political integration of Algerians, which I will assess by observing the recorded level of interest in host country politics, interest in home country politics, and voter participation in the national and local elections in the host country.
 
-## Project Proposal
-
-I ask the question: To what extent are Algerian migrants incorporated into French politics and government? For the purposes of my project, I define 'Algerian migrants' as inclusive of Algerian migrants and those of Algerian descent in France (generational). My explanatory variables are the identities of those questioned in the survey data, and I am specifically controlling for whether an individual identifies as French or Algerian, and if they are an immigrant or not. My outcome variable is the political integration of Algerians, which I will assess by observing the measures of interest in host country politics, interest in home country politics, and voter participation in the host and home country, as well as local elections in the host country.
-
-I predict that when opportunities across all three dimensions (individual, group, and political) are low, there will be low political integration of Algerian migrants. If the data contains examples of low education opportunities for Algerians and low political integration in those regions, this would support my hypothesis However, if the data contains examples of low educational opportunities, yet there is high political integration, my hypothesis will be disproved.
-
-I am using data from the Morales, Anduiza,Bengtsson, et all "LOCALMULTIDEM and MDE Individual Survey (WP4) Dataset" which studies the political opportunities afforded to migrants in multicultural democracies in Europe. This is a massive data set that based on survey questioning. For the purposes of my project, I will focusing on their data on France, and more specifically on Algerians in France. This data is very strong in how it distinguishes between Algerian migrants, migrants of other backgrounds, and French born people- as this is very difficult considering France's policy of laïcité.
+I predict that when when compared to their autochthonous (natural French-born citizens) counterparts, there will be low political integration of Algerian migrants. If expect that the data will show low interest in host country politics for the Algerian migrants, and a lower voter turn out than French citizens. This would support the claim that there is low political integration if Algerian migrants. However, if the data contains examples of low interest in French politics and a low voter turnout for both French citizens and Algerians, it would be difficult to make any claims about political integration, and my hypothesis will be disproved.
 
 
-## Distribution of plot of the outcome variable
+## Data
+
+I am using data from the Morales, Anduiza,Bengtsson, et all "LOCALMULTIDEM and MDE Individual Survey (WP4) Dataset" which studies the political opportunities afforded to migrants in multicultural democracies in Europe. This is a massive data set that based on survey questioning. For the purposes of my project, I will focusing on their data on France, and more specifically on Algerians in France. This data is very strong in how it distinguishes between Algerian migrants, migrants of other backgrounds, and French born people- as this is very difficult considering France's tendency towards universalism.
+
+For my research design, I am using an observational, cross-sectional design. The control group in my study are the natural born French citizens, and the treated group are the Algerian migrants. This is a naturally assigned treatment that I cannot randomize, but merely observe. Also, because I am using survey data, I compare outcomes treated and control units at one point in time.
+
+My experiment has low internal validity, because as an observational study, the treatment and control groups may differ in ways that are hard to measure. Specifically in my study, there could have been differences in the groups of native French people asked as opposed to the Algerian immigrants that could have skewed my results. For example, maybe one group had a higher concentration of college graduates surveyed than the other. However, my experiment has higher external validity, because as an observational study, it likely contains more representative samples that improve external validity. For instance, I had data from over 1000 survey participants which is a large, representative sample. 
+
+
+# Distribution Plot of the Outcome Variable
 
 ```{r}
 lmd |>
   ggplot(aes(x = int_host)) +
   geom_histogram(aes(y = ..count../sum(..count..)))
 ```
+Looking the the outcome variable of interest in host country politics, where participants ranked their feelings from 1 (Not at all interested) to 4 (Very interested), the majority of those surveyed ranked their sentiments at a 3 (Fairly Interested). This is a relatively high level of interest.
 
 ```{r}
 lmd |>
-  ggplot(aes(x = q25)) +
+  ggplot(aes(x = int_home)) +
+  geom_histogram(aes(y = ..count../sum(..count..)))
+```
+Looking the the outcome variable of interest in home country politics, using the same scale as before, the majority of those surveyed ranked their sentiments at a 1 (Not interested at all). This is much lower, especially when compared to interest in host country politics.
+
+```{r}
+lmd |>
+  filter(algerian_binary == "1") |>
+  ggplot(aes(x = int_host)) +
+  geom_histogram(aes(y = ..count../sum(..count..)))
+
+lmd |>
+  filter(immigrant_binary == "1") |>
+  ggplot(aes(x = int_host)) +
+  geom_histogram(aes(y = ..count../sum(..count..)))
+
+lmd |>
+  filter(algerian_binary == "0") |>
+  ggplot(aes(x = int_host)) +
+  geom_histogram(aes(y = ..count../sum(..count..)))
+
+lmd |>
+  filter(immigrant_binary == "0") |>
+  ggplot(aes(x = int_host)) +
+  geom_histogram(aes(y = ..count../sum(..count..)))
+```
+In these graphs, I separated the levels of interest in host country politics by group identity (Algerian or French) and immigrant identity (immigrant or non-immigrant). While the differences between the groups is small, those with an Algerian or immigrant background responded with a higher level of interest in host country politics than their French and non-immigrant counterparts. This difference is most noticeable in the difference between how many respondents ranked their level of interest with a '4' signifying the highest level of interest. 
+
+```{r}
+lmd |>
+  ggplot(aes(x = q25, na.rm = TRUE)) +
   geom_histogram(aes(y = ..count..))
 ```
+Next, I looked at the outcome variable of voter participation at the national level for the host country. For this survey question, respondents were asked if they voted in the last national question, and they were asked to respond with 1 = Yes, 2 = No, but eligible to vote, 3 = No, not eligible, 8 = Can't remember, and 9 =Refusal. The majority of respondents, around 600, replied that they had voted. Out of those who did not vote, the majority were eligible. 
 
+```{r}
+lmd |>
+  filter(algerian_binary == "1") |>
+  ggplot(aes(x = q25, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
 
-## Bivariate plot of the explanatory (x) and outcome variable (y)
+lmd |>
+  filter(algerian_binary == "0") |>
+  ggplot(aes(x = q25, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+
+lmd |>
+  filter(immigrant_binary == "1") |>
+  ggplot(aes(x = q25, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+
+lmd |>
+  filter(immigrant_binary == "0") |>
+  ggplot(aes(x = q25, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+```
+When comparing the difference in voter participation between those of Algerian backgrounds as opposed to those of French backgrounds, both groups are voting in nearly proportional numbers. The biggest difference between the two groups is that for the Algerians who do not vote, most of them are an ineligible, wheras this is not the case for the French.
+
+This is nearly the exact same case when comparing immigrants with natural-born French citizens. However, the most striking feature of this case is how in the non-immigrant group, there was no case of not voting because of ineligbility. 
+
+```{r}
+lmd |>
+  ggplot(aes(x = q27FR, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+```
+When asked the same question about if they had voted, but this time at the local level. This question uses the same scale as the question on national voter participation, but also includes -1 to represent non-applicability. For most survey participants asked, the second highest answer after N/A was split nearly evenly between 1 and 2. This means that at the local level, of those who this question pertained to, there are nearly as many people who are eligible to vote that do not vote, as there are people who vote.
+
+```{r}
+lmd |>
+  filter(algerian_binary == "1") |>
+  ggplot(aes(x = q27FR, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+
+lmd |>
+  filter(algerian_binary == "0") |>
+  ggplot(aes(x = q27FR, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+
+lmd |>
+  filter(immigrant_binary == "1") |>
+  ggplot(aes(x = q27FR, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+
+lmd |>
+  filter(immigrant_binary == "0") |>
+  ggplot(aes(x = q27FR, na.rm = TRUE)) +
+  geom_histogram(aes(y = ..count..))
+```
+When looking at the rates of voter participation at the local level, there are much bigger differences between Algerians and French people, as well as between immigrants and non-immigrants. For the majority of the Algerian and immigrant groups, respondents fell in the non-applicability category. Comparatively, the voter participation of French, non-immigrants was significantly much higher than their counterparts.
+
+## Results
+# Bivariate plot of the explanatory (x) and outcome variable (y)
 
 ```{r}
 lmd |>
@@ -85,9 +176,21 @@ lmd |>
 lmd |>
   ggplot(aes(x = as.factor(algerian_binary), y = int_host)) +
   geom_boxplot()
-```
 
-## Multivariate regression table
+lmd |>
+  group_by(immigrant_binary) |>
+  summarize(int_host = mean(int_host, na.rm = TRUE)) |>
+  ggplot(aes(x = immigrant_binary, y = int_host)) +
+  geom_col()
+
+lmd |>
+  ggplot(aes(x = as.factor(immigrant_binary), y = int_host)) +
+  geom_boxplot()
+```
+The above plots depict the average interest in host country politics for the binary Algerian/French group, and binary immigrant/non-immigrant group. For Algerians and immigrants, the average survey response was a '3' or 'fairly interested'. For the French participants and non-immigrants, the average survey response was slightly lower at around a '2.8'. Overall, there is not a significant differnce between the binary variables that can be discerned. This does not support the idea that there is a causal relationship between one's national belonging and immigrant status with their incorporation into French politics. 
+
+
+# Multivariate regression table
 
 ```{r}
 mod1 <- 
@@ -99,4 +202,20 @@ mod1 <-
 summary(mod1)$coefficients |>
   knitr::kable(digits = 2)
 ```
+Looking at this regression on the level of interest in host country politics, the intercept is the mean of y in the baseline group, and it is an estimated 3.00 when the Algerian binary and migrant binary variables are held constant. Looking at how these two explanatory variables affect the level of interest in host country politics, I find that for every one unit increase in the Algerian binary, there is 0.16 drop in interest.For every one unit increase in the immigrant binary, there is a 0.01 drop in interest. These values are true when the other variable is held constant. Both variables show a negative relationship between increased Algerian and migrant participants with interest in host country politics. However, the group identity variable (Algerian/French) depicts a stronger relationship that could be more useful in determining a causal relationship with incorporation in politics rather than migrant status when looking at this particular outcome variable. 
+
+```{r}
+mod2 <- 
+  lm(
+    data = lmd,
+    q25 ~
+      algerian_binary + immigrant_binary)
+
+summary(mod2)$coefficients |>
+  knitr::kable(digits = 2)
+```
+This second regression assesses the rate of voter participation in the host country. The intercept is the mean of y in the baseline group, and it is an estimated 1.94 when the Algerian binary and migrant binary variables are held constant. Looking at how these two explanatory variables affect voter participation in the host country, I find that for every one unit increase in the Algerian binary, there is 0.01 increase in voter participation. For every one unit increase in the immigrant binary, there is a 0.14 drop in voter participation. Once again, these values are true when the other variable is held constant. For this outcome variable, an increase in Algerian participants shows a slightly positive relationship with voting, whereas an increase in migrants shows a more significant decrease in voting. In this case, I think that the group identity variable (Algerian/French) does not reveal a very significant relationship. Rather, the migrant status variable is much more useful and provides convincing relationship between a participants immigration background with the likelihood they vote, and thus, their incorporation into French politics. 
+
+## Conclusion
+
 
